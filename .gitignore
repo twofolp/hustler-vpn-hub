@@ -22,3 +22,4 @@ single_test.json
 inspect_protocols.py
 test_multi_protocols.py
 clean_pool.py
+print_vless.py

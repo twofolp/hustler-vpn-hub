@@ -128,7 +128,9 @@ def find_or_download_xray() -> str:
 
 
 TOXIC_SNIS = [
-    "speed.cloudflare.com", "yahoo.com", "speedtest.net", "aws.amazon.com", "amazon.com"
+    "speed.cloudflare.com", "yahoo.com", "speedtest.net", "aws.amazon.com", "amazon.com",
+    "apple.com", "cloudflare.com", "www.apple.com", "www.cloudflare.com", "www.icloud.com",
+    "fuck", ".rkn"
 ]
 
 def is_toxic_sni(sni: str) -> bool:
@@ -446,22 +448,22 @@ def run_full_check():
     # 3. Collect candidates to replenish pool
     candidates = collect_all_candidates()
 
-    new_candidates = [n for n in candidates if f"{n.protocol}_{n.host}:{n.port}" not in seen_keys]
+    INCY_SUPPORTED = ("vless", "trojan", "vmess", "ss")
+    new_candidates = [n for n in candidates if n.protocol in INCY_SUPPORTED and f"{n.protocol}_{n.host}:{n.port}" not in seen_keys]
+    
     wl_nodes = [n for n in new_candidates if n.is_whitelist or is_wl(n.sni, n.remark)]
-    hy2_nodes = [n for n in new_candidates if n.protocol in ("hysteria2", "hy2", "tuic")]
     trojan_ss_nodes = [n for n in new_candidates if n.protocol in ("trojan", "ss", "vmess")]
     clean_vless = [n for n in new_candidates if n.protocol == "vless" and not is_toxic_sni(n.sni) and not (n.is_whitelist or is_wl(n.sni, n.remark))]
 
     print(f"  • Whitelist (РФ/Зарубежные обходы):  {len(wl_nodes)}")
-    print(f"  • Hysteria 2 / Hy2 (UDP анти-DPI):   {len(hy2_nodes)}")
     print(f"  • Trojan / Shadowsocks / VMess:      {len(trojan_ss_nodes)}")
     print(f"  • Чистый VLESS Reality:              {len(clean_vless)}")
 
-    # Test balanced multi-protocol batch: up to 1700 candidates
-    batch = wl_nodes[:500] + hy2_nodes[:400] + trojan_ss_nodes[:400] + clean_vless[:400]
+    # Test balanced Incy batch: up to 1800 candidates
+    batch = wl_nodes[:800] + trojan_ss_nodes[:500] + clean_vless[:500]
     args_list = [(n, i + len(surviving_nodes), xray_bin) for i, n in enumerate(batch)]
 
-    print(f"[*] Проверка {len(batch)} кандидатов всех протоколов для пополнения пула...")
+    print(f"[*] Проверка {len(batch)} кандидатов для Incy/Happ...")
     t0 = time.time()
     newly_verified: List[ProxyNode] = []
 
