@@ -127,6 +127,14 @@ def find_or_download_xray() -> str:
     return "xray"
 
 
+TOXIC_SNIS = [
+    "speed.cloudflare.com", "yahoo.com", "speedtest.net", "aws.amazon.com", "amazon.com"
+]
+
+def is_toxic_sni(sni: str) -> bool:
+    s = (sni or "").lower()
+    return any(t in s for t in TOXIC_SNIS)
+
 def is_wl(sni: str, remark: str = "") -> bool:
     s = (sni or "").lower() + " " + (remark or "").lower()
     return any(p in s for p in WL_KEYWORDS)
@@ -331,7 +339,7 @@ def run_full_check():
     print(f"[*] Текущий базовый пул: {len(existing_servers)} серверов")
 
     # 2. Re-test existing servers to prune dead ones and measure fresh latency
-    concurrency = 35
+    concurrency = 50
     surviving_nodes = []
     if existing_servers:
         print("[*] Экспресс-проверка текущего пула (проверка живых серверов)...")
@@ -362,13 +370,13 @@ def run_full_check():
 
     new_candidates = [n for n in candidates if f"{n.host}:{n.port}" not in seen_keys]
     wl_nodes = [n for n in new_candidates if is_wl(n.sni, n.remark)]
-    gen_nodes = [n for n in new_candidates if not is_wl(n.sni, n.remark)]
+    gen_nodes = [n for n in new_candidates if not is_wl(n.sni, n.remark) and not is_toxic_sni(n.sni)]
 
     print(f"  • Свежих кандидатов с Whitelist SNI: {len(wl_nodes)}")
-    print(f"  • Свежих обычных кандидатов:         {len(gen_nodes)}")
+    print(f"  • Свежих обычных кандидатов (без токсичных SNI): {len(gen_nodes)}")
 
-    # Test fresh batch
-    batch = wl_nodes[:200] + gen_nodes[:200]
+    # Test large fresh batch: up to 800 whitelist + 800 general candidates
+    batch = wl_nodes[:800] + gen_nodes[:800]
     args_list = [(n, i + len(surviving_nodes), xray_bin) for i, n in enumerate(batch)]
 
     print(f"[*] Проверка {len(batch)} новых кандидатов для пополнения пула...")
