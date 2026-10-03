@@ -1,0 +1,25 @@
+[
+  {
+    "protocol": "vless",
+    "host": "81.94.148.120",
+    "port": 7449,
+    "uuid": "2690c11f-7258-43fe-aeb9-d90f93a3c317",
+    "security": "reality",
+    "sni": "passport.yandex.ru",
+    "pbk": "blW-TdkBvKRn4-lkM64Cn2QgfOqjCRYRQ9upE6RPt3c",
+    "sid": "c0c41dc21cf7c18e",
+    "flow": "xtls-rprx-vision",
+    "type": "raw",
+    "remark": "🌐 OTHER [🛡️ Яндекс/Дзен] • 434ms",
+    "is_whitelist": true,
+    "whitelist_label": "🛡️ Яндекс/Дзен",
+    "whitelist_category": "Yandex-Dzen",
+    "country_code": "NL",
+    "country_flag": "🇳🇱",
+    "country_name": "Нидерланды",
+    "latency_ms": 434,
+    "is_alive": true,
+    "source_id": null,
+    "uri": "vless://2690c11f-7258-43fe-aeb9-d90f93a3c317@81.94.148.120:7449?encryption=none&flow=xtls-rprx-vision&fp=random&pbk=blW-TdkBvKRn4-lkM64Cn2QgfOqjCRYRQ9upE6RPt3c&security=reality&sid=c0c41dc21cf7c18e&sni=passport.yandex.ru&type=raw#%F0%9F%8C%90%20OTHER%20%5B%F0%9F%9B%A1%EF%B8%8F%20%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81/%D0%94%D0%B7%D0%B5%D0%BD%5D%20%E2%80%A2%20434ms"
+  }
+]

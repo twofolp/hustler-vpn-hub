@@ -1,0 +1,394 @@
+{
+  "igareck/vpn-configs-for-russia": {
+    "name": "igareck/vpn-configs-for-russia",
+    "url": "https://github.com/igareck/vpn-configs-for-russia",
+    "desc": "🗽Бесплатные и проверенные VPN/Tor конфигурации, работающие в РФ ⚪ Белые списки / обход белых списков ⚪ Free and checked VPN/Tor configurations that work in Russia ⚪ Whitelists bypass",
+    "stars": 9039,
+    "updated": "2026-10-03T11:14:49Z"
+  },
+  "aviamastersgh/vpn-free-russia": {
+    "name": "aviamastersgh/vpn-free-russia",
+    "url": "https://github.com/aviamastersgh/vpn-free-russia",
+    "desc": "Бесплатные VPN-конфигурации для России: VLESS Reality, Hysteria2, Trojan, VMess, Shadowsocks и TUIC. Проверенные VPN-подписки для v2rayNG, v2rayN, Hiddify, Karing и NekoBox.",
+    "stars": 39,
+    "updated": "2026-10-03T11:01:38Z"
+  },
+  "VOID-Anonymity/V.O.I.D-VPN_Bypass": {
+    "name": "VOID-Anonymity/V.O.I.D-VPN_Bypass",
+    "url": "https://github.com/VOID-Anonymity/V.O.I.D-VPN_Bypass",
+    "desc": "Сборник ссылок с конфигами Vless для обхода блокировок и белых списков в Российской Федерации by V.O.I.D™",
+    "stars": 41,
+    "updated": "2026-10-03T11:00:59Z"
+  },
+  "sivpn/sivpn.github.io": {
+    "name": "sivpn/sivpn.github.io",
+    "url": "https://github.com/sivpn/sivpn.github.io",
+    "desc": "sivpn: 21st-century network freedom. Bypass / 绕过 / इंटरनेट / Evitar / Contourner / Обход. Also Bypass internet censorship, 绕过网络封锁, इंटरनेट सेंसरशिप को बायपास करना, Evitar la censura de internet, Contourner la censure d'internet, Обход блокировок интернета",
+    "stars": 2,
+    "updated": "2026-10-03T11:00:46Z"
+  },
+  "kudryash0vv/kudryash0vv.YKTFLOW": {
+    "name": "kudryash0vv/kudryash0vv.YKTFLOW",
+    "url": "https://github.com/kudryash0vv/kudryash0vv.YKTFLOW",
+    "desc": "kudryash0vv.YKTFLOW- VPNYKT Автоматизированная система мониторинга, фильтрации и дистрибуции высокоскоростных узлов Xray/V2Ray с ледяным характером.",
+    "stars": 7,
+    "updated": "2026-10-03T10:56:55Z"
+  },
+  "Maskkost93/kizyak-vpn-4.0": {
+    "name": "Maskkost93/kizyak-vpn-4.0",
+    "url": "https://github.com/Maskkost93/kizyak-vpn-4.0",
+    "desc": "Надоело смотреть на \"соединение...\" в телеграме? Бесит баннер \"Адрес не найден\"? Мы просто убираем все БС и ЧС в сторонку, чтобы ты получал свой интернет без вопросов. Отдельное спасибо igareck/vpn-configs-for-russia",
+    "stars": 55,
+    "updated": "2026-10-03T10:54:56Z"
+  },
+  "RKPchannel/RKP_bypass_configs": {
+    "name": "RKPchannel/RKP_bypass_configs",
+    "url": "https://github.com/RKPchannel/RKP_bypass_configs",
+    "desc": "Подписки для обхода ограничений на территории Российской Федерации. Софт для сбора и проверки публичных конфигураций.",
+    "stars": 121,
+    "updated": "2026-10-03T10:52:45Z"
+  },
+  "hussaroff/lte-universal-checked": {
+    "name": "hussaroff/lte-universal-checked",
+    "url": "https://github.com/hussaroff/lte-universal-checked",
+    "desc": "Tunnel LTE Universal Checked — это публичный репозиторий с автоматически обновляемым списком VLESS-конфигураций, ориентированных на работу в условиях LTE whitelist-фильтрации.",
+    "stars": 16,
+    "updated": "2026-10-03T07:56:04Z"
+  },
+  "terik21/HiddifySubs-VlessKeys": {
+    "name": "terik21/HiddifySubs-VlessKeys",
+    "url": "https://github.com/terik21/HiddifySubs-VlessKeys",
+    "desc": null,
+    "stars": 24,
+    "updated": "2026-10-03T07:53:15Z"
+  },
+  "flaafix/AetrisVPN": {
+    "name": "flaafix/AetrisVPN",
+    "url": "https://github.com/flaafix/AetrisVPN",
+    "desc": "AetrisVPN - free vless key, and more other. UPDATES EVERY HOUR",
+    "stars": 23,
+    "updated": "2026-10-03T07:12:59Z"
+  },
+  "coloramamoe/vless-parser": {
+    "name": "coloramamoe/vless-parser",
+    "url": "https://github.com/coloramamoe/vless-parser",
+    "desc": "Whitelist-only VLESS parser",
+    "stars": 6,
+    "updated": "2026-10-03T06:48:59Z"
+  },
+  "flaafix/AetrisVPN-white-list-lite": {
+    "name": "flaafix/AetrisVPN-white-list-lite",
+    "url": "https://github.com/flaafix/AetrisVPN-white-list-lite",
+    "desc": "AetrisVPN UPDATES EVERY HOUR",
+    "stars": 14,
+    "updated": "2026-10-03T06:13:02Z"
+  },
+  "NullCoreDeveloper/v2whitelist": {
+    "name": "NullCoreDeveloper/v2whitelist",
+    "url": "https://github.com/NullCoreDeveloper/v2whitelist",
+    "desc": "Бесплатный Open-Source VPN-клиент для Android (V2Ray/Xray). Простой и стильный интерфейс для надежного обхода белых списков на мобильном интернете.",
+    "stars": 60,
+    "updated": "2026-10-03T06:59:58Z"
+  },
+  "Friskes/vpn-infra": {
+    "name": "Friskes/vpn-infra",
+    "url": "https://github.com/Friskes/vpn-infra",
+    "desc": "Личный VPN-сервер на чистом VPS одной командой: WireGuard, VLESS+Reality, DNS-туннели и RustDesk — каждый сервис отдельным выключателем",
+    "stars": 3,
+    "updated": "2026-09-29T19:33:53Z"
+  },
+  "dv0vd/dv0vd": {
+    "name": "dv0vd/dv0vd",
+    "url": "https://github.com/dv0vd/dv0vd",
+    "desc": "SOCKS4/5, HTTPS, MTProto proxies, Outline VPN, VLESS+XTLS/Reality, WebRTC tunneling / whitelist-bypass infrastructure, Matrix (Synapse), TURN (Coturn), ntfy, LiveKit, Pi-hole, DNS-over-HTTPS, RustDesk, Email, SIP services, Open WebUI",
+    "stars": 1,
+    "updated": "2026-09-29T06:49:19Z"
+  },
+  "rom5n/whitelist-download": {
+    "name": "rom5n/whitelist-download",
+    "url": "https://github.com/rom5n/whitelist-download",
+    "desc": "🌊 Обход белых списков. Агрегатор open-source конфигов для обхода белых списков",
+    "stars": 28,
+    "updated": "2026-09-26T17:04:18Z"
+  },
+  "xLyouLx/SNI-sub-filter": {
+    "name": "xLyouLx/SNI-sub-filter",
+    "url": "https://github.com/xLyouLx/SNI-sub-filter",
+    "desc": "Фильтрует ключи vless/vmess/trojan/ss/hysteria2/tuic по SNI/host, оставляя только те, чей домен совпадает с твоим белым списком.",
+    "stars": 6,
+    "updated": "2026-09-24T18:29:18Z"
+  },
+  "X2X13211/X2X-VPN": {
+    "name": "X2X13211/X2X-VPN",
+    "url": "https://github.com/X2X13211/X2X-VPN",
+    "desc": "Прокси: @timenewsai",
+    "stars": 2,
+    "updated": "2026-09-30T19:11:58Z"
+  },
+  "Ghost-in-the-dark/sni-recon": {
+    "name": "Ghost-in-the-dark/sni-recon",
+    "url": "https://github.com/Ghost-in-the-dark/sni-recon",
+    "desc": "Recon for TLS nodes used as SNI cover: whitelist mapping, offline certificate verification, hoster identification, and domain-masking detection. Zero dependencies.",
+    "stars": 0,
+    "updated": "2026-09-24T14:51:50Z"
+  },
+  "trymyfear/Russia-whitelist-bypass": {
+    "name": "trymyfear/Russia-whitelist-bypass",
+    "url": "https://github.com/trymyfear/Russia-whitelist-bypass",
+    "desc": "Обход белых списков и глушилок мобильных операторов в РФ (VLESS + REALITY)",
+    "stars": 0,
+    "updated": "2026-09-06T12:14:08Z"
+  },
+  "indelingDanil/MyAppVPN": {
+    "name": "indelingDanil/MyAppVPN",
+    "url": "https://github.com/indelingDanil/MyAppVPN",
+    "desc": "Бесплатный VPN для Android. Белые списки в России. Рабочий Telegram Yotube и пр.. Некоммерческий проект (песочница).",
+    "stars": 43,
+    "updated": "2026-10-02T13:31:51Z"
+  },
+  "So77eZ/vless-reality-guide-ru-06.26": {
+    "name": "So77eZ/vless-reality-guide-ru-06.26",
+    "url": "https://github.com/So77eZ/vless-reality-guide-ru-06.26",
+    "desc": "Пошаговый гайд для новичка: свой VPS с VLESS Reality для обхода DPI-блокировок в РФ. Без розовых очков — честно про то, что схема может и чего не может (белые списки).",
+    "stars": 2,
+    "updated": "2026-09-17T16:09:32Z"
+  },
+  "jsxta/whitelist-russia": {
+    "name": "jsxta/whitelist-russia",
+    "url": "https://github.com/jsxta/whitelist-russia",
+    "desc": "Белые списки. Блокировки. Ускорение мобильного интернета. Ограничение мобильного интернета",
+    "stars": 54,
+    "updated": "2026-09-30T20:46:04Z"
+  },
+  "Vit9borzenko/SubRat": {
+    "name": "Vit9borzenko/SubRat",
+    "url": "https://github.com/Vit9borzenko/SubRat",
+    "desc": "Пробирается через щели в белых списках. Собирает крошки с разных подписок и склеивает в один рабочий туннель. Multi-source VPN config aggregator that bypasses whitelists.",
+    "stars": 0,
+    "updated": "2026-07-29T14:34:48Z"
+  },
+  "TempestTerrapin/vpn-russia-obhod-whitelists": {
+    "name": "TempestTerrapin/vpn-russia-obhod-whitelists",
+    "url": "https://github.com/TempestTerrapin/vpn-russia-obhod-whitelists",
+    "desc": "VPN Russia Обход Вайтлистов | Надежный инструмент для обхода строгих сетевых ограничений и белых списков. Обеспечьте стабильный и анонимный доступ к заблокированным ресурсам с высокой скоростью соединения.",
+    "stars": 1,
+    "updated": "2026-06-21T15:07:16Z"
+  },
+  "Amberpiclippers/vpn-configs-for-russia-region": {
+    "name": "Amberpiclippers/vpn-configs-for-russia-region",
+    "url": "https://github.com/Amberpiclippers/vpn-configs-for-russia-region",
+    "desc": "VPN Configs for Russia | Готовые конфигурации VPN для стабильного обхода блокировок в РФ. Скачайте актуальные файлы WireGuard, OpenVPN и Vless для быстрого, безопасного и бесперебойного доступа к любым заблокированным ресурсам.",
+    "stars": 6,
+    "updated": "2026-09-14T11:14:43Z"
+  },
+  "meraws/MeraVPN": {
+    "name": "meraws/MeraVPN",
+    "url": "https://github.com/meraws/MeraVPN",
+    "desc": "Proxy list, regularly checked for functionality. Private subscription with filtering. Whitelists for Russia. Free VPN.",
+    "stars": 1,
+    "updated": "2026-05-07T15:31:46Z"
+  },
+  "dag05rus/NO-RKN-PC": {
+    "name": "dag05rus/NO-RKN-PC",
+    "url": "https://github.com/dag05rus/NO-RKN-PC",
+    "desc": "Приветствую! Мой проект - это помощь тем людям, у которых нет возможности установить в данный момент по тем или иным причинам роутер с интернетом и пользуется мобильной точкой доступа, раздавая себе на его на ПК. Способ актуален по сей день. (только на ПК)",
+    "stars": 2,
+    "updated": "2026-06-21T15:09:39Z"
+  },
+  "wlunlocker/vpn-configs": {
+    "name": "wlunlocker/vpn-configs",
+    "url": "https://github.com/wlunlocker/vpn-configs",
+    "desc": "Проект для свободного доступа к ресурсам интернета. Здесь я собираю и фильтрую актуальные VPN-конфигурации, чтобы вы могли обходить блокировки без лишних проблем. В подборках только проверенные списки серверов с поддержкой CIDR и SNI. Бесплатные прокси для Telegram — @wlproxy/сайт ниже.",
+    "stars": 23,
+    "updated": "2026-10-03T10:20:14Z"
+  },
+  "ed-asriyan/rkn-server-deploy": {
+    "name": "ed-asriyan/rkn-server-deploy",
+    "url": "https://github.com/ed-asriyan/rkn-server-deploy",
+    "desc": "Server with vless+reality on board for my friends to bypass internet censorship ",
+    "stars": 1,
+    "updated": "2026-09-28T04:24:57Z"
+  },
+  "swzxu/Axis": {
+    "name": "swzxu/Axis",
+    "url": "https://github.com/swzxu/Axis",
+    "desc": "A lightweight and simple proxy app based on Mihomo",
+    "stars": 3,
+    "updated": "2026-08-03T17:14:32Z"
+  },
+  "slxkware/Vless-list": {
+    "name": "slxkware/Vless-list",
+    "url": "https://github.com/slxkware/Vless-list",
+    "desc": "⭐Free VLESS configs for Russia • Auto-updated every 2h⭐",
+    "stars": 1,
+    "updated": "2026-10-03T07:15:29Z"
+  },
+  "BuntingFight/white-vless-configs-for-russia": {
+    "name": "BuntingFight/white-vless-configs-for-russia",
+    "url": "https://github.com/BuntingFight/white-vless-configs-for-russia",
+    "desc": "Бесплатные быстрые vless конфигурации, включающие в себя также \"белые\" конфигурации для обхода \"белых списков\". проект создан на чистом энтузиазме.",
+    "stars": 0,
+    "updated": "2026-08-30T07:34:39Z"
+  },
+  "mpavlov796-collab/-": {
+    "name": "mpavlov796-collab/-",
+    "url": "https://github.com/mpavlov796-collab/-",
+    "desc": "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/refs/heads/main/Vless-Reality-White-Lists- ",
+    "stars": 0,
+    "updated": "2026-06-20T09:41:17Z"
+  },
+  "wegjtz/Proxy-list-20k-server": {
+    "name": "wegjtz/Proxy-list-20k-server",
+    "url": "https://github.com/wegjtz/Proxy-list-20k-server",
+    "desc": "20,000+ public VPN configs (VLESS, Reality, Shadowsocks, Trojan). Daily updated list with 1,000+ stable checked servers for bypassing censorship in Russia",
+    "stars": 2,
+    "updated": "2026-06-09T17:04:30Z"
+  },
+  "SawaMEN/3x-ui": {
+    "name": "SawaMEN/3x-ui",
+    "url": "https://github.com/SawaMEN/3x-ui",
+    "desc": "Supporting multi-protocol multi-user(Vmess, Vless, Trojan, ShadowSocks, Wireguard, Hysteria, Tunnel, Mixed, HTTP, Tun, Telemt, AmneziaWG, vk-turn-proxy)",
+    "stars": 3,
+    "updated": "2026-10-03T07:46:26Z"
+  },
+  "anton48/vk-turn-proxy-ios": {
+    "name": "anton48/vk-turn-proxy-ios",
+    "url": "https://github.com/anton48/vk-turn-proxy-ios",
+    "desc": "VK TURN proxy for iOS",
+    "stars": 286,
+    "updated": "2026-10-01T13:32:07Z"
+  },
+  "i-execute/OBHOD": {
+    "name": "i-execute/OBHOD",
+    "url": "https://github.com/i-execute/OBHOD",
+    "desc": "Telegram bot issuing WireGuard and Xray configs via VK TURN proxy — bypasses DPI blocking and whitelists, with automated peer provisioning.",
+    "stars": 4,
+    "updated": "2026-09-28T07:15:15Z"
+  },
+  "WINGS-N/WINGSV": {
+    "name": "WINGS-N/WINGSV",
+    "url": "https://github.com/WINGS-N/WINGSV",
+    "desc": "VPN клиент под Xray и vk-turn-proxy с дизайном Samsung One UI, root раздачей VPN, bypass'ом приложений, встроенным WG (+ root mode), ByeDPI, автопереключением, Xposed модулем для скрытия VPN, и многим другим",
+    "stars": 241,
+    "updated": "2026-10-03T05:37:05Z"
+  },
+  "aes-gcm/vk-turn-proxy-macos": {
+    "name": "aes-gcm/vk-turn-proxy-macos",
+    "url": "https://github.com/aes-gcm/vk-turn-proxy-macos",
+    "desc": "Native macOS SwiftUI client and Go helper for VK TURN Proxy",
+    "stars": 0,
+    "updated": "2026-09-26T14:37:40Z"
+  },
+  "ildarmaga/wdtt": {
+    "name": "ildarmaga/wdtt",
+    "url": "https://github.com/ildarmaga/wdtt",
+    "desc": "WDTT VPN server + web panel. CSQTT/RAW/qWDTT, Xray routing. Based on amurcanov/proxy-turn-vk-android. API: docs/API.md",
+    "stars": 76,
+    "updated": "2026-10-02T19:57:20Z"
+  },
+  "Mi0card/proxy-turn-vk-windows": {
+    "name": "Mi0card/proxy-turn-vk-windows",
+    "url": "https://github.com/Mi0card/proxy-turn-vk-windows",
+    "desc": "Windows and macOS GUI client for WireGuard over VK TURN tunnel — system proxy, SOCKS5/HTTP proxy, SSH deploy",
+    "stars": 5,
+    "updated": "2026-09-28T01:02:02Z"
+  },
+  "SpaceNeuroX/proxy-turn-vk-android": {
+    "name": "SpaceNeuroX/proxy-turn-vk-android",
+    "url": "https://github.com/SpaceNeuroX/proxy-turn-vk-android",
+    "desc": null,
+    "stars": 323,
+    "updated": "2026-10-02T19:04:25Z"
+  },
+  "amurcanov/proxy-turn-vk-android": {
+    "name": "amurcanov/proxy-turn-vk-android",
+    "url": "https://github.com/amurcanov/proxy-turn-vk-android",
+    "desc": "WireGuard‑туннель через DTLS‑медиарелей ВК TURN‑серверов: трафик проходит от клиента к вашему личному VPS‑серверу через промежуточные медиарелей‑серверы ВК.",
+    "stars": 1160,
+    "updated": "2026-10-02T19:57:18Z"
+  },
+  "foi/ansible-role-vk-turn-proxy": {
+    "name": "foi/ansible-role-vk-turn-proxy",
+    "url": "https://github.com/foi/ansible-role-vk-turn-proxy",
+    "desc": "vk turn proxy ansible role",
+    "stars": 0,
+    "updated": "2026-09-07T14:47:19Z"
+  },
+  "MYSOREZ/vk-turn-proxy-android": {
+    "name": "MYSOREZ/vk-turn-proxy-android",
+    "url": "https://github.com/MYSOREZ/vk-turn-proxy-android",
+    "desc": "Android-приложение под ядро https://github.com/cacggghp/vk-turn-proxy",
+    "stars": 447,
+    "updated": "2026-09-30T19:06:09Z"
+  },
+  "politologhse/good-turn": {
+    "name": "politologhse/good-turn",
+    "url": "https://github.com/politologhse/good-turn",
+    "desc": "Bypass internet censorship via VK TURN servers. Hysteria2 QUIC proxy tunneled through VK calls infrastructure.",
+    "stars": 5,
+    "updated": "2026-08-24T14:58:43Z"
+  },
+  "jewbsv/proxy-turn-vk-android": {
+    "name": "jewbsv/proxy-turn-vk-android",
+    "url": "https://github.com/jewbsv/proxy-turn-vk-android",
+    "desc": "Надежный WireGuard-туннель, работающий поверх DTLS-медиарелеев платформы VK. Утилита обеспечивает безопасную маршрутизацию трафика от вашего устройства к личному VPS через транзитные TURN-серверы ВКонтакте, маскируя соединение под обычный голосовой вызов.",
+    "stars": 2,
+    "updated": "2026-08-24T06:43:16Z"
+  },
+  "hoaxisr/proxy-turn-vk-android": {
+    "name": "hoaxisr/proxy-turn-vk-android",
+    "url": "https://github.com/hoaxisr/proxy-turn-vk-android",
+    "desc": null,
+    "stars": 0,
+    "updated": "2026-08-19T16:22:55Z"
+  },
+  "larcefox/proxy-turn-vk-windows-proxy": {
+    "name": "larcefox/proxy-turn-vk-windows-proxy",
+    "url": "https://github.com/larcefox/proxy-turn-vk-windows-proxy",
+    "desc": null,
+    "stars": 0,
+    "updated": "2026-08-14T10:37:42Z"
+  },
+  "l1ch666/vk-turn-proxy": {
+    "name": "l1ch666/vk-turn-proxy",
+    "url": "https://github.com/l1ch666/vk-turn-proxy",
+    "desc": "vk-turn-proxy Go core with explicit VLESS bond support",
+    "stars": 0,
+    "updated": "2026-08-10T15:30:04Z"
+  },
+  "Nielkro/proxy-turn-vk-android": {
+    "name": "Nielkro/proxy-turn-vk-android",
+    "url": "https://github.com/Nielkro/proxy-turn-vk-android",
+    "desc": null,
+    "stars": 0,
+    "updated": "2026-08-09T04:35:16Z"
+  },
+  "Ne0-Hack/docker-wireguard-vk-turn-proxy": {
+    "name": "Ne0-Hack/docker-wireguard-vk-turn-proxy",
+    "url": "https://github.com/Ne0-Hack/docker-wireguard-vk-turn-proxy",
+    "desc": "Docker Compose deployment for WireGuard with VK TURN Proxy, automatic Ubuntu setup, firewall and peer generation.",
+    "stars": 2,
+    "updated": "2026-08-04T10:27:08Z"
+  },
+  "Memosik/vk-turn-proxy-installer": {
+    "name": "Memosik/vk-turn-proxy-installer",
+    "url": "https://github.com/Memosik/vk-turn-proxy-installer",
+    "desc": "Универсальный установщик VK TURN Proxy + WireGuard + WARP и WDTT Server для Ubuntu/Debian. Поддерживает vbridge:// и wdtt:// ссылки.",
+    "stars": 5,
+    "updated": "2026-07-27T23:01:10Z"
+  },
+  "famence/vk-turn-proxy-macos": {
+    "name": "famence/vk-turn-proxy-macos",
+    "url": "https://github.com/famence/vk-turn-proxy-macos",
+    "desc": null,
+    "stars": 0,
+    "updated": "2026-07-09T21:25:44Z"
+  },
+  "uxsmr/turn_proxy": {
+    "name": "uxsmr/turn_proxy",
+    "url": "https://github.com/uxsmr/turn_proxy",
+    "desc": "TURN proxy for optional VLESS-over-VK transport",
+    "stars": 0,
+    "updated": "2026-04-14T14:26:34Z"
+  }
+}
