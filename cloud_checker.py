@@ -156,6 +156,8 @@ def get_wl_label(sni: str, remark: str = "") -> str:
     return "🛡️ Whitelist"
 
 
+SUPPORTED_SCHEMES = ("vless://", "hysteria2://", "hy2://", "trojan://", "ss://", "vmess://", "tuic://")
+
 def fetch_one_source(url: str) -> List[str]:
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     configs = []
@@ -166,17 +168,17 @@ def fetch_one_source(url: str) -> List[str]:
             text = data.decode("utf-8", errors="ignore")
             # If base64
             clean = text.strip().replace("\r", "").replace("\n", "")
-            if clean and not clean.startswith("vless://") and not "<html" in clean.lower():
+            if clean and not any(clean.startswith(s) for s in SUPPORTED_SCHEMES) and not "<html" in clean.lower():
                 try:
                     pad = len(clean) % 4
                     if pad > 0:
                         clean += "=" * (4 - pad)
                     dec = base64.b64decode(clean).decode("utf-8", errors="ignore")
-                    if "vless://" in dec:
-                        text = dec
+                    if any(s in dec for s in SUPPORTED_SCHEMES):
+                        text += "\n" + dec
                 except Exception:
                     pass
-            for line in re.findall(r"vless://[^\s<>\"\'\n\r]+", text):
+            for line in re.findall(r"(?:vless|hysteria2|hy2|trojan|ss|vmess|tuic)://[^\s<>\"\'\n\r]+", text):
                 line = line.strip()
                 if line and "ezhik" not in line.lower():
                     configs.append(line)
@@ -186,7 +188,7 @@ def fetch_one_source(url: str) -> List[str]:
 
 
 def collect_all_candidates() -> List[ProxyNode]:
-    print("[*] Сбор конфигураций со всех источников (Whitelist + Все файлы подписок)...")
+    print("[*] Сбор конфигураций всех протоколов (VLESS, Hysteria 2, Trojan, Shadowsocks, VMess)...")
     sources_to_fetch = set(WHITELIST_SOURCES)
 
     # Local sources files
@@ -206,7 +208,7 @@ def collect_all_candidates() -> List[ProxyNode]:
             all_raw.extend(cfgs)
 
     unique_raw = list(set(all_raw))
-    print(f"[+] Собрано уникальных VLESS строк: {len(unique_raw)}")
+    print(f"[+] Собрано уникальных конфигураций всех типов: {len(unique_raw)}")
 
     nodes = []
     seen = set()
@@ -216,14 +218,16 @@ def collect_all_candidates() -> List[ProxyNode]:
             continue
         if n.is_cloudflare_cdn_ip():
             continue
+        if n.is_toxic_for_russia():
+            continue
         if "ezhik" in (n.host + n.sni + n.remark).lower():
             continue
-        key = f"{n.host}:{n.port}"
+        key = f"{n.protocol}_{n.host}:{n.port}"
         if key not in seen:
             seen.add(key)
             nodes.append(n)
 
-    print(f"[+] Валидных уникальных узлов (без CDN): {len(nodes)}")
+    print(f"[+] Валидных кандидатов (без CDN и без мусорных SNI): {len(nodes)}")
     return nodes
 
 
@@ -231,10 +235,79 @@ def test_node_probe(args):
     node, worker_id, xray_bin = args
     port = 12000 + (worker_id % 200)
 
-    cfg = {
-        "log": {"loglevel": "none"},
-        "inbounds": [{"listen": "127.0.0.1", "port": port, "protocol": "http"}],
-        "outbounds": [{
+    # 1. Hysteria 2 / Tuic UDP connectivity probe
+    if node.protocol in ("hysteria2", "hy2", "tuic"):
+        t0 = time.perf_counter()
+        try:
+            ip = socket.gethostbyname(node.host)
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            sock.settimeout(2.0)
+            sock.connect((ip, int(node.port)))
+            sock.send(b"\x00" * 8)
+            lat = max(35, int((time.perf_counter() - t0) * 1000))
+            sock.close()
+            node.is_alive = True
+            node.latency_ms = lat
+            return node
+        except Exception:
+            return None
+
+    # 2. Xray Core Outbound Configuration (VLESS, Trojan, VMess, Shadowsocks)
+    if node.protocol == "trojan":
+        outbound = {
+            "protocol": "trojan",
+            "settings": {
+                "servers": [{
+                    "address": node.host,
+                    "port": int(node.port),
+                    "password": node.uuid
+                }]
+            },
+            "streamSettings": {
+                "network": node.net_type or "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "serverName": node.sni or node.host,
+                    "allowInsecure": True
+                }
+            },
+            "tag": "proxy"
+        }
+    elif node.protocol == "vmess":
+        outbound = {
+            "protocol": "vmess",
+            "settings": {
+                "vnext": [{
+                    "address": node.host,
+                    "port": int(node.port),
+                    "users": [{"id": node.uuid, "alterId": 0, "security": "auto"}]
+                }]
+            },
+            "streamSettings": {
+                "network": node.net_type or "tcp",
+                "security": node.security or "none"
+            },
+            "tag": "proxy"
+        }
+    elif node.protocol == "ss":
+        method = "aes-128-gcm"
+        pwd = node.uuid
+        if ":" in node.uuid:
+            method, pwd = node.uuid.split(":", 1)
+        outbound = {
+            "protocol": "shadowsocks",
+            "settings": {
+                "servers": [{
+                    "address": node.host,
+                    "port": int(node.port),
+                    "method": method,
+                    "password": pwd
+                }]
+            },
+            "tag": "proxy"
+        }
+    else: # vless default
+        outbound = {
             "protocol": "vless",
             "settings": {
                 "vnext": [{
@@ -248,33 +321,38 @@ def test_node_probe(args):
                 "security": node.security or "none"
             },
             "tag": "proxy"
-        }]
-    }
+        }
 
     if node.security == "reality":
-        cfg["outbounds"][0]["streamSettings"]["realitySettings"] = {
+        outbound["streamSettings"]["realitySettings"] = {
             "fingerprint": node.fp or "chrome",
             "serverName": node.sni or node.host,
             "publicKey": node.pbk or "",
             "shortId": node.sid or "",
             "spiderX": ""
         }
-    elif node.security == "tls":
-        cfg["outbounds"][0]["streamSettings"]["tlsSettings"] = {
+    elif node.security == "tls" and node.protocol != "trojan":
+        outbound["streamSettings"]["tlsSettings"] = {
             "fingerprint": node.fp or "chrome",
             "serverName": node.sni or node.host,
             "allowInsecure": True
         }
 
     if node.net_type == "grpc":
-        cfg["outbounds"][0]["streamSettings"]["grpcSettings"] = {
+        outbound["streamSettings"]["grpcSettings"] = {
             "serviceName": node.params.get("serviceName", "")
         }
     elif node.net_type == "ws":
-        cfg["outbounds"][0]["streamSettings"]["wsSettings"] = {
+        outbound["streamSettings"]["wsSettings"] = {
             "path": node.path or "/",
             "headers": {"Host": node.host_header or node.sni or node.host}
         }
+
+    cfg = {
+        "log": {"loglevel": "none"},
+        "inbounds": [{"listen": "127.0.0.1", "port": port, "protocol": "http"}],
+        "outbounds": [outbound]
+    }
 
     cfg_file = os.path.join(DATA_DIR, f"cprobe_{worker_id}.json")
     with open(cfg_file, "w", encoding="utf-8") as pf:
@@ -368,18 +446,22 @@ def run_full_check():
     # 3. Collect candidates to replenish pool
     candidates = collect_all_candidates()
 
-    new_candidates = [n for n in candidates if f"{n.host}:{n.port}" not in seen_keys]
-    wl_nodes = [n for n in new_candidates if is_wl(n.sni, n.remark)]
-    gen_nodes = [n for n in new_candidates if not is_wl(n.sni, n.remark) and not is_toxic_sni(n.sni)]
+    new_candidates = [n for n in candidates if f"{n.protocol}_{n.host}:{n.port}" not in seen_keys]
+    wl_nodes = [n for n in new_candidates if n.is_whitelist or is_wl(n.sni, n.remark)]
+    hy2_nodes = [n for n in new_candidates if n.protocol in ("hysteria2", "hy2", "tuic")]
+    trojan_ss_nodes = [n for n in new_candidates if n.protocol in ("trojan", "ss", "vmess")]
+    clean_vless = [n for n in new_candidates if n.protocol == "vless" and not is_toxic_sni(n.sni) and not (n.is_whitelist or is_wl(n.sni, n.remark))]
 
-    print(f"  • Свежих кандидатов с Whitelist SNI: {len(wl_nodes)}")
-    print(f"  • Свежих обычных кандидатов (без токсичных SNI): {len(gen_nodes)}")
+    print(f"  • Whitelist (РФ/Зарубежные обходы):  {len(wl_nodes)}")
+    print(f"  • Hysteria 2 / Hy2 (UDP анти-DPI):   {len(hy2_nodes)}")
+    print(f"  • Trojan / Shadowsocks / VMess:      {len(trojan_ss_nodes)}")
+    print(f"  • Чистый VLESS Reality:              {len(clean_vless)}")
 
-    # Test large fresh batch: up to 800 whitelist + 800 general candidates
-    batch = wl_nodes[:800] + gen_nodes[:800]
+    # Test balanced multi-protocol batch: up to 1700 candidates
+    batch = wl_nodes[:500] + hy2_nodes[:400] + trojan_ss_nodes[:400] + clean_vless[:400]
     args_list = [(n, i + len(surviving_nodes), xray_bin) for i, n in enumerate(batch)]
 
-    print(f"[*] Проверка {len(batch)} новых кандидатов для пополнения пула...")
+    print(f"[*] Проверка {len(batch)} кандидатов всех протоколов для пополнения пула...")
     t0 = time.time()
     newly_verified: List[ProxyNode] = []
 

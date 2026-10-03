@@ -19,3 +19,6 @@ data/raw_servers.txt
 probe_*.json
 test_*.json
 single_test.json
+inspect_protocols.py
+test_multi_protocols.py
+clean_pool.py

@@ -70,6 +70,10 @@ class ProxyNode:
                 self._parse_ss()
             elif self.raw_url.startswith("trojan://"):
                 self._parse_trojan()
+            elif self.raw_url.startswith("hysteria2://") or self.raw_url.startswith("hy2://"):
+                self._parse_hysteria2()
+            elif self.raw_url.startswith("tuic://"):
+                self._parse_tuic()
             else:
                 self.is_valid = False
                 return
@@ -187,6 +191,53 @@ class ProxyNode:
         self.sni = self.params.get("sni", "") or self.params.get("peer", "")
         self.security = self.params.get("security", "tls")
 
+    def _parse_hysteria2(self):
+        self.protocol = "hysteria2"
+        prefix = "hysteria2://" if self.raw_url.startswith("hysteria2://") else "hy2://"
+        body = self.raw_url[len(prefix):]
+        if "#" in body:
+            body, remark = body.split("#", 1)
+            self.remark = urllib.parse.unquote(remark).strip()
+        if "?" in body:
+            body, query_str = body.split("?", 1)
+            for k, v in urllib.parse.parse_qsl(query_str, keep_blank_values=True):
+                self.params[k] = v
+        if "@" in body:
+            pwd, host_port = body.split("@", 1)
+            self.uuid = pwd
+            if ":" in host_port:
+                parts = host_port.split(":")
+                self.host = parts[0].strip("[]")
+                self.port = int(parts[1]) if parts[1].isdigit() else 443
+            else:
+                self.host = host_port.strip("[]")
+                self.port = 443
+        self.sni = self.params.get("sni", "") or self.params.get("peer", "")
+        self.security = "tls"
+
+    def _parse_tuic(self):
+        self.protocol = "tuic"
+        body = self.raw_url[7:]
+        if "#" in body:
+            body, remark = body.split("#", 1)
+            self.remark = urllib.parse.unquote(remark).strip()
+        if "?" in body:
+            body, query_str = body.split("?", 1)
+            for k, v in urllib.parse.parse_qsl(query_str, keep_blank_values=True):
+                self.params[k] = v
+        if "@" in body:
+            pwd, host_port = body.split("@", 1)
+            self.uuid = pwd
+            if ":" in host_port:
+                parts = host_port.split(":")
+                self.host = parts[0].strip("[]")
+                self.port = int(parts[1]) if parts[1].isdigit() else 443
+            else:
+                self.host = host_port.strip("[]")
+                self.port = 443
+        self.sni = self.params.get("sni", "")
+        self.security = "tls"
+
     def _check_whitelist(self):
         target_str = (self.sni + " " + self.host_header + " " + self.remark).lower()
 
@@ -217,31 +268,47 @@ class ProxyNode:
         cf_prefixes = [
             "104.16.", "104.17.", "104.18.", "104.19.", "104.20.", "104.21.", "104.22.", "104.23.", "104.24.", "104.25.", "104.26.", "104.27.",
             "172.64.", "172.65.", "172.66.", "172.67.", "172.68.", "172.69.", "172.70.", "172.71.",
+            "162.158.", "162.159.",
             "188.114.96.", "188.114.97.", "188.114.98.", "188.114.99.", "198.41."
         ]
         return any(self.host.startswith(p) for p in cf_prefixes)
+
+    def is_toxic_for_russia(self) -> bool:
+        """Filters nodes that are technically online in Western DCs but guaranteed dead on Russian ISPs."""
+        # 1. Plaintext unencrypted HTTP is killed by Russian TSPU
+        if self.security in ("none", "") and self.protocol in ("vless", "vmess"):
+            return True
+        # 2. Blocked reality SNIs
+        if self.security == "reality":
+            if not self.sni:
+                return True
+            s = self.sni.lower()
+            if any(b in s for b in ["speed.cloudflare.com", "yahoo.com", "speedtest.net", "fuck", ".rkn"]):
+                return True
+        return False
 
     def get_clean_remark(self, index: Optional[int] = None) -> str:
         """Constructs an informative, beautiful remark for clients (never uses raw scraped junk)."""
         flag = self.country_flag or "🌐"
         c_name = self.country_name if self.country_name and self.country_name != "Неизвестно" else (self.country_code or "VPN")
         
+        proto_tag = f" • {self.protocol.upper()}" if self.protocol != "vless" else ""
         wl = f" [{self.whitelist_label}]" if self.is_whitelist else ""
         gaming = " [🎮 Игровой]" if (not self.is_whitelist and 0 < self.latency_ms <= 85) else ""
         ping = f" • {self.latency_ms}ms" if self.latency_ms > 0 else ""
         num = f" #{index}" if index is not None else ""
         
-        return f"{flag} {c_name}{wl}{gaming}{num}{ping}".strip()
+        return f"{flag} {c_name}{proto_tag}{wl}{gaming}{num}{ping}".strip()
 
-    def to_vless_uri(self, custom_remark: Optional[str] = None) -> str:
-        """Formats back to standard vless:// URI with guaranteed clean readable remark."""
-        if self.protocol != "vless":
-            return self.raw_url
-        
-        query = urllib.parse.urlencode(self.params)
+    def to_uri(self, custom_remark: Optional[str] = None) -> str:
+        """Formats back to standard URI for any protocol with guaranteed clean readable remark."""
         remark = custom_remark if custom_remark else self.get_clean_remark()
         encoded_remark = urllib.parse.quote(remark)
-        return f"vless://{self.uuid}@{self.host}:{self.port}?{query}#{encoded_remark}"
+        base = self.raw_url.split("#")[0] if "#" in self.raw_url else self.raw_url
+        return f"{base}#{encoded_remark}"
+
+    def to_vless_uri(self, custom_remark: Optional[str] = None) -> str:
+        return self.to_uri(custom_remark)
 
     def to_dict(self) -> Dict[str, Any]:
         clean_rem = self.get_clean_remark()
@@ -266,7 +333,7 @@ class ProxyNode:
             "latency_ms": self.latency_ms,
             "is_alive": self.is_alive,
             "source_id": self.source_id,
-            "uri": self.to_vless_uri(clean_rem)
+            "uri": self.to_uri(clean_rem)
         }
 
 
