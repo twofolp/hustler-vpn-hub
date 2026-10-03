@@ -1,0 +1,56 @@
+name: 🍄 24/7 Cloud VLESS Checker & Cloudflare Sync
+
+on:
+  schedule:
+    # Run every 30 minutes 24/7/365 automatically in the cloud
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    # Allows manual trigger from GitHub UI or Telegram Bot
+  push:
+    branches:
+      - main
+    paths:
+      - 'sources/**'
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: ''
+
+      - name: ⚡ Install Xray Core (Linux x64)
+        run: |
+          echo "[*] Downloading latest Xray Core for Linux..."
+          curl -sL https://github.com/XTLS/Xray-core/releases/download/v26.7.28/Xray-linux-64.zip -o xray.zip
+          unzip -o xray.zip xray
+          chmod +x xray
+          ./xray version
+
+      - name: 🚀 Run Cloud VLESS Checker & Auto-Deploy to Cloudflare
+        env:
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          XRAY_PATH: ./xray
+        run: |
+          python cloud_checker.py
+
+      - name: 💾 Commit verified server snapshot
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Cloud Checker"
+          git add data/alive_servers.json data/alive_servers.txt || true
+          git diff --staged --quiet || git commit -m "🤖 Auto-check: verified alive servers [$(date -u +'%Y-%m-%d %H:%M UTC')]"
+          git push || true
